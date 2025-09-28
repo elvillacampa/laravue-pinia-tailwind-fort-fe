@@ -43,8 +43,3 @@
     </div>
   </div>
 </template>
-<style scoped>
-.custom-wrapper {
-  max-width: none;
-}
-</style>

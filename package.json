@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@formkit/vue": "^1.6.9",
+    "@heroicons/vue": "^2.2.0",
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.11.0",
+    "laravel-vue-pagination": "^4.1.3",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
     "tailwindcss": "^4.1.13",

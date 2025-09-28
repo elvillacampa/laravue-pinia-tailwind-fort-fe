@@ -20,3 +20,36 @@ export interface User {
     created_at: string;
     updated_at: string;
 }
+
+
+export type Post {
+    id: number;
+    title?: string;
+    content?: string;
+    created_at?: string;
+    is_published?: boolean;
+    slug?: string;
+    loading?: boolean;
+}
+
+export type postForm = {
+    title: string;
+    slug: string;
+}
+
+export interface LaravelResponseCollection<T>{
+    data?: T[];
+    current_page?: number;
+    first_page_url?: string;
+    from?: number;
+    last_page?: number;
+    last_page_url?: string;
+    links?: { url: string | null; label: string; active: boolean }[];
+    next_page_url?: string | null;
+    path?: string;
+    per_page?: number;
+    prev_page_url?: string | null;
+    to?: number;
+    total?: number;
+    loading?: boolean;  
+}

@@ -6,9 +6,12 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="dark:bg-slate-950 bg-slate-700">
 
       <nav class="container mx-auto flex items-center justify-between p-4">
-        <RouterLink class="text-slate-200" to="/" exact>Home</RouterLink>
-        <div class="flex space-x-2">
+        <div class="flex space x-2">
+          <RouterLink class="text-slate-200 p-2 px-3" to="/" exact>Home</RouterLink>
+          <RouterLink class="text-slate-200 p-2 px-3" to="/dashboard/posts">Posts</RouterLink>
           <RouterLink class="text-slate-200 p-2 px-3" to="/dashboard">Dashboard</RouterLink>
+        </div>
+        <div class="flex space-x-2">
           <RouterLink class="text-slate-200 p-2 px-3" to="/login">Login</RouterLink>
           <RouterLink class="text-slate-200 p-2 px-3" to="/register">Register</RouterLink>
         </div>
@@ -22,3 +25,8 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </main>
 </template>
+<style>
+.custom-wrapper {
+  max-width: none;
+}
+</style>

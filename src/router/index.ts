@@ -6,6 +6,10 @@ import Dashboard from '@/views/auth/Dashboard.vue'
 import ServerError from '@/views/errors/500.vue'
 import NotFound from '@/views/errors/404.vue'
 import { AuthStore } from '@/store/auth';
+import PostIndex from '@/views/posts/PostIndex.vue'
+import PostCreate from '@/views/posts/PostCreate.vue'
+import PostView from '@/views/posts/PostView.vue'
+import PostEdit from '@/views/posts/PostEdit.vue' 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,16 +54,42 @@ const router = createRouter({
       name: 'ServerError',
       component: ServerError,
     },
+    {
+      path: '/dashboard/posts',
+      name: 'PostIndex',
+      component: PostIndex,
+      meta:{ requiresAuth: true }
+    },
+    {
+      path: '/dashboard/posts/create',
+      name: 'PostCreate',
+      component: PostCreate,
+      meta:{ requiresAuth: true }
+    },
+    {
+      path: '/dashboard/posts/view/:slug',
+      name: 'PostView',
+      component: PostView,
+      meta:{ requiresAuth: true },
+      props: true
+    },
+    {
+      path: '/dashboard/posts/edit/:slug',
+      name: 'PostEdit',
+      component: PostEdit,
+      meta:{ requiresAuth: true },
+      props: true
+    },
   ],
 })
 
 router.beforeEach((to, from, next) => {
   
-  const {isloggedIn} = AuthStore(); 
+  const {isLoggedIn} = AuthStore(); 
 
-  if (to.meta.requiresAuth && !isloggedIn) {
+  if (to.meta.requiresAuth && !isLoggedIn) {
     next('/login');
-  } else if ((to.path === '/login' || to.path === '/register') && isloggedIn) {
+  } else if ((to.path === '/login' || to.path === '/register') && isLoggedIn) {
     next('/dashboard');
   } else {
     next();

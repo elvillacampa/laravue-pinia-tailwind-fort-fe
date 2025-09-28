@@ -1,87 +1,122 @@
-import type { User } from "@/types";
 import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 import axiosInstance from "@/lib/axios";
 import router from "@/router";
-import type { RegisterForm, LoginForm } from "@/types";
+import type { User, RegisterForm, LoginForm } from "@/types";
 import type { FormKitNode } from "@formkit/core";
-import { AxiosError } from "axios"; 
+import { AxiosError } from "axios";
 
-export const AuthStore = defineStore("auth", {
-  state: () => ({
-    user: null as User | null,
-    token: null as null | string,
-    loading: false,
-    error: null as null | string,
-    isloggedIn: false,
-  }),
+export const AuthStore = defineStore("auth", () => {
+  // 🧠 State (all as refs)
+  const user = ref<User | null>(null);
+  const isLoggedIn = ref<boolean>(false);
+  const error = ref<string | null>(null);
+  const token = ref<string | null>(null);
+  const loading = ref<boolean>(false);
+
+
+  // 🛠 Actions
+  const register = async (payload: RegisterForm, node?: FormKitNode) => {
+    await axiosInstance.get('/sanctum/csrf-cookie', {
+      baseURL: 'http://localhost:8000',
+      withCredentials: true,
+    })
+
+    try {
+      payload.name = `${payload.firstname} ${payload.lastname}`
+      await axiosInstance.post('/register', payload, {
+        withCredentials: true,
+      })
+      await getLoggedUser()
+      router.push('/dashboard')
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        if (e.response?.status === 422 && node) {
+          node.setErrors([], e.response.data.errors)
+        } else {
+          console.error('Registration failed:', e.response?.data || e.message)
+        }
+      } else {
+        console.error('Unexpected error:', e)
+      }
+    }
+  }
+  const login = async (payload: LoginForm, node?: FormKitNode) => {
+    await axiosInstance.get("/sanctum/csrf-cookie", {
+      baseURL: "http://localhost:8000",
+    });
+
+    try {
+      await axiosInstance.post("/login", payload);
+      await getLoggedUser();
+      router.push("/dashboard");
+    } catch (e) {
+      if (e instanceof AxiosError && e.response?.status === 422) {
+        node?.setErrors(e.response.data.errors);
+      }
+      resetUserState();
+    }
+  }
+  const logout = async () => {
+    try {
+      await axiosInstance.post("/logout");
+    } finally {
+      resetUserState();
+      router.push("/login");
+    }
+  }
+
+  const getLoggedUser = async () => {
+    if (isLoggedIn.value) return;
+
+    try {
+      const { data } = await axiosInstance.get("/user");
+      user.value = data;
+      isLoggedIn.value = true;
+    } catch (e) {
+      if (e instanceof AxiosError && e.response?.status === 401) {
+        resetUserState();
+      }
+    }
+  }
+
+  function resetUserState() {
+    user.value = null;
+    token.value = null;
+    isLoggedIn.value = false;
+    loading.value = false;
+    error.value = null;
+  }
+
+    // 🪄 Getters as computed properties
+    const getUser = computed(() => user.value);
+    const getToken = computed(() => token.value);
+    const getError = computed(() => error.value);
+    const isLoading = computed(() => loading.value);
+    const isAuthenticated = computed(() => !!token.value);
+
+  // Return everything
+  return {
+    user,
+    token,
+    error,
+    isLoggedIn,
+    loading,
+    register,
+    login,
+    logout,
+    getLoggedUser,
+    resetUserState,
+    isAuthenticated,
+    getUser,
+    getToken,
+    isLoading,
+    getError,
+  };
+},
+{
   persist: {
-    storage:sessionStorage,
-    pick:["user","token","isloggedIn"],
+    storage: sessionStorage,
+    pick: ["user", "token", "isLoggedIn"],
   },
-  actions: {
-    async register(payload:RegisterForm, node?: FormKitNode) {
-        await axiosInstance.get('/sanctum/csrf-cookie',{
-            baseURL: "http://localhost:8000"
-        });
-        try {
-            payload.name = payload.firstname + " " + payload.lastname
-            await axiosInstance.post('/register', payload);
-            await this.getLoggedUser();
-            router.push('/dashboard');
-        } catch (e) { 
-            if(e instanceof AxiosError && e.response?.status === 422) {
-                node?.setErrors(e.response.data.errors);
-            }    
-        }
-    },
-    async login (payload:LoginForm, node?: FormKitNode ) {
-        await axiosInstance.get('/sanctum/csrf-cookie',{
-            baseURL: "http://localhost:8000"
-        });
-
-        try {
-            await axiosInstance.post('/login', payload);
-            await this.getLoggedUser();
-            router.push('/dashboard');
-        } catch (e) { 
-            if(e instanceof AxiosError && e.response?.status === 422) {
-                node?.setErrors(e.response.data.errors);
-            }
-            this.resetUserState();
-        }
-    },
-    async logout(){
-        try {
-            await axiosInstance.post('/logout');
-            this.resetUserState();
-            router.push('/login');
-        } catch (error) {
-        }
-    },
-    async getLoggedUser(){
-        try {
-            const response = axiosInstance.get('/user');
-            this.user = (await response).data
-            this.isloggedIn = true;
-        } catch (e) { 
-            if(e instanceof AxiosError && e.response?.status === 401) {
-                this.resetUserState();
-            }
-        }
-    },
-    resetUserState() {
-        this.user = null;
-        this.token = null;
-        this.isloggedIn = false;
-        this.loading = false;
-        this.error = null;
-    },
-    },
-    getters: {
-        isAuthenticated: (state) => !!state.token,
-        getUser: (state) => state.user,
-        getToken: (state) => state.token,
-        isLoading: (state) => state.loading,
-        getError: (state) => state.error,
-    },
 });
