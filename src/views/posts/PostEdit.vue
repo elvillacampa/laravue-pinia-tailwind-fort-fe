@@ -10,6 +10,7 @@
   const store = PostStore();
   const { postData,loading } = storeToRefs(store);
   const { getPost, updatePost } = store
+  
   const handleUpdate = async (payload: postForm, node?: FormKitNode) => {
     await updatePost(String(router.currentRoute.value.params.slug), payload, node)
   }

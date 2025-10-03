@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-if="postsList && !loading" >
+                        <template v-if="postsList?.data?.length" >
                             <tr v-for="(post, index) in postsList.data" :key="post.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ index + 1 }}
@@ -72,31 +72,31 @@
                                 </td>
                             </tr>
                         </template>
-                        <template v-if="!loading && !postsList">
+                        <template v-else>
                             <tr>
                                 <td colspan="7" class="text-center p-4 text-white">
-                                    No posts found. Create one?
+                                    No posts found. <RouterLink class="text-slate-200" :to="{name: 'PostCreate'}">Create One?</RouterLink>
                                 </td>
                             </tr>
                         </template>
                     </tbody>
                 </table>
-<template v-if="!loading && postsList">
-  <div class="flex justify-center mt-4">
-    <TailwindPagination
-      :data="postsList"
-      @pagination-change-page="page = $event"
-      class="[&_*]:cursor-pointer 
-             [&_li]:mx-0.5 
-             [&_li]:text-xs 
-             [&_li]:px-0.5 
-             [&_li]:py-0.5 
-             [&_a]:px-1 
-             [&_a]:py-0.5 
-             [&_a]:text-xs"
-    />
-  </div>
-</template>
+                <template v-if="!loading && postsList">
+                <div class="flex justify-center mt-4">
+                    <TailwindPagination
+                    :data="postsList"
+                    @pagination-change-page="page = $event"
+                    class="[&_*]:cursor-pointer 
+                            [&_li]:mx-0.5 
+                            [&_li]:text-xs 
+                            [&_li]:px-0.5 
+                            [&_li]:py-0.5 
+                            [&_a]:px-1 
+                            [&_a]:py-0.5 
+                            [&_a]:text-xs"
+                    />
+                </div>
+                </template>
             </div>
         </template>
 

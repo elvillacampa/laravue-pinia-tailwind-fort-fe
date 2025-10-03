@@ -63,6 +63,8 @@ export const PostStore = defineStore("post", () => {
   }
 
   const deletePost = async(page:number, slug:string) => {
+    const confirmed = confirm("Are you sure you want to delete this post?");
+    if (!confirmed) return; // ✅ Stop if user cancels
     isLoading.value =true;
     try{
       await axiosInstance.delete(`/dashboard/posts/${slug}`);

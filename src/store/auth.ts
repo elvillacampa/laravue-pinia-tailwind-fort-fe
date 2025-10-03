@@ -18,7 +18,8 @@ export const AuthStore = defineStore("auth", () => {
   // 🛠 Actions
   const register = async (payload: RegisterForm, node?: FormKitNode) => {
     await axiosInstance.get('/sanctum/csrf-cookie', {
-      baseURL: 'http://localhost:8000',
+      // CSRF cookie endpoint lives at the app root, not under /api
+      baseURL: import.meta.env.VITE_APP_URL ?? '',
       withCredentials: true,
     })
 
@@ -43,7 +44,9 @@ export const AuthStore = defineStore("auth", () => {
   }
   const login = async (payload: LoginForm, node?: FormKitNode) => {
     await axiosInstance.get("/sanctum/csrf-cookie", {
-      baseURL: "http://localhost:8000",
+      // CSRF cookie endpoint lives at the app root, not under /api
+      baseURL: import.meta.env.VITE_APP_URL ?? '',
+      withCredentials: true,
     });
 
     try {
