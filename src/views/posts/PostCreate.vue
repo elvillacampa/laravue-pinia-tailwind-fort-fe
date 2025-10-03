@@ -9,6 +9,7 @@
         type="form" 
         submit-label="Create" 
         @submit="createPost" 
+        :submit-attrs="{ inputClass: 'cursor-pointer' }"
         class="w-full"
       >
         <h1 class="text-center p-2 text-3xl text-slate-200">Create Post</h1>

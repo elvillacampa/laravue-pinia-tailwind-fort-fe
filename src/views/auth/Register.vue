@@ -10,6 +10,7 @@
         submit-label="Register" 
         @submit="register" 
         class="w-full"
+        :submit-attrs="{ inputClass: 'cursor-pointer' }"
       >
         <h1 class="text-center p-2 text-3xl text-slate-200">Register</h1>
         <p class="text-sm text-white text-center mb-3">

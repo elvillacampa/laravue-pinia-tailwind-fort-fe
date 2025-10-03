@@ -27,7 +27,8 @@
       <FormKit 
         type="form" 
         submit-label="Update" 
-        @submit="handleUpdate" 
+        @submit="handleUpdate"
+        :submit-attrs="{ inputClass: 'cursor-pointer' }" 
         class="w-full"
       >
         <h1 class="text-center p-2 text-3xl text-slate-200">Update Post</h1>

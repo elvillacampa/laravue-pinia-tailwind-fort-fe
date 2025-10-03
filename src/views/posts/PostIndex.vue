@@ -1,6 +1,7 @@
 <template>
-    <div class="flex p-4 justify-end">
-        <RouterLink class="text-slate-200 p-2 px-3" :to="{name: 'PostCreate'}">Create Post</RouterLink>
+
+<div class="flex p-4 justify-end">
+        <RouterLink class="text-slate-200 p-2 px-3 btn" :to="{name: 'PostCreate'}">Create Post</RouterLink>
     </div>
     <section class="p-4">
         <template v-if="loading">
