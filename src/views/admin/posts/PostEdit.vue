@@ -21,9 +21,8 @@
   );
 </script>
 <template>
-  <div class="p-4">
-    
-    <section v-if="postData && !loading">
+  <section class="p-4">
+    <div v-if="postData && !loading" class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
       <FormKit 
         type="form" 
         submit-label="Update" 
@@ -59,11 +58,11 @@
           help="The actual post."
         />
       </FormKit>
-    </section>
-    <section v-else class="text-center p-4 text-white">
+    </div>
+    <div v-else class="text-center p-4 text-white">
         Loading post...
-    </section>
-  </div>
+    </div>
+  </section>
 
 
 </template>

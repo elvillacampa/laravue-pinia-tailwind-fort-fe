@@ -111,6 +111,14 @@ function firstLetter(name: string) {
           </span>
         </li>
       </ul>
+      <div class="max-w-4xl mt-15 w-full text-center text-sm text-gray-500 dark:text-gray-400">
+          <RouterLink
+            :to="{ name: 'Dashboard' }"
+            class="text-slate-200 bg-slate-800/60 hover:bg-slate-700 hover:text-white font-medium px-10 py-5 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md backdrop-blur-sm"
+          >
+            Go to App
+          </RouterLink>
+      </div>
     </div>
   </main>
 </template>

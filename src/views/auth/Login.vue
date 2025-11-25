@@ -5,8 +5,17 @@
 </script>
 <template>
   <div class="min-h-screen mx-2 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900">
+    <div class="flex flex-col items-center space-y-3 mb-2">
+      <img
+        src="https://flowbite.com/docs/images/logo.svg"
+        class="h-13 drop-shadow-md"
+        alt="FlowBite Logo"
+      />
+      <span class="text-3xl font-bold tracking-tight text-slate-800 dark:text-white">
+        Sidequest
+      </span>
+    </div>
     <div class="w-full max-w-lg p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-
       <FormKit 
         type="form" 
         submit-label="Login" 
@@ -41,6 +50,11 @@
           help="The password is at least 8 characters."
         />
       </FormKit>
+      <p class="text-white text-right"> Don't have an account? 
+        <RouterLink :to="{ name: 'Register'}" class="text-sky-400 hover:underline">
+          Register!
+        </RouterLink>
+      </p>
     </div>
   </div>
 </template>

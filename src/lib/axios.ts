@@ -3,7 +3,7 @@ import axsios from 'axios';
 import { AuthStore } from '@/store/auth';
 
 const axiosInstance = axsios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: `${import.meta.env.VITE_APP_URL?.replace(/\/$/, '') || ''}/api`,
     withCredentials: true,
     withXSRFToken: true,
 });

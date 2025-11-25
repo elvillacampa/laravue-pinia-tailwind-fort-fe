@@ -1,18 +1,18 @@
 <script setup lang="ts">
   import { PostStore } from '@/store/post.ts';
-  const { createPost } = PostStore();
+  const { addPost } = PostStore();
 </script>
 <template>
   <div class="p-4">
 
       <FormKit 
         type="form" 
-        submit-label="Create" 
-        @submit="createPost" 
+        submit-label="Add" 
+        @submit="addPost" 
         :submit-attrs="{ inputClass: 'cursor-pointer' }"
         class="w-full"
       >
-        <h1 class="text-center p-2 text-3xl text-slate-200">Create Post</h1>
+        <h1 class="text-center p-2 text-3xl text-slate-200">Add Post</h1>
         <p class="text-sm text-white text-center mb-3">
           Please enter the details of your post!
         </p>

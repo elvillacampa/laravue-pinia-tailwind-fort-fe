@@ -1,6 +1,8 @@
 /* @import './base.css'; */
 @import "tailwindcss";
-
+@import "flowbite/src/themes/default";
+/* @source "../node_modules/flowbite";
+@plugin "flowbite/plugin"; */
 /* #app {
   max-width: 1280px;
   margin: 0 auto;

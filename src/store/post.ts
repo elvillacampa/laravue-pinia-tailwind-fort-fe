@@ -18,7 +18,7 @@ export const PostStore = defineStore("post", () => {
     posts.value = null
     isLoading.value = true;
     try{
-      const { data } = await axiosInstance.get(`/dashboard/posts?page=${page}`);
+      const { data } = await axiosInstance.get(`/posts?page=${page}`);
       posts.value = data;
     }catch(e){
       console.log(e)
@@ -31,7 +31,7 @@ export const PostStore = defineStore("post", () => {
     post.value = null
     isLoading.value = true;
     try{
-      const { data } = await axiosInstance.get(`/dashboard/posts/${slug}`);
+      const { data } = await axiosInstance.get(`/posts/${slug}`);
       post.value = data.data;
     }catch(e){
       console.log(e)
@@ -40,10 +40,10 @@ export const PostStore = defineStore("post", () => {
     }
   }
 
-  const createPost = async(payload: postForm,  node?: FormKitNode) => {
+  const addPost = async(payload: postForm,  node?: FormKitNode) => {
     try{
-      await axiosInstance.post('/dashboard/posts', payload);
-      router.push('/dashboard/posts');
+      await axiosInstance.post('/posts', payload);
+      router.push({name:'Post'});
     }catch(e){
       if(e instanceof AxiosError && e.response?.status === 422) {
           node?.setErrors(e.response.data.errors);
@@ -53,8 +53,8 @@ export const PostStore = defineStore("post", () => {
 
   const updatePost = async(slug: string, payload: postForm,  node?: FormKitNode) => {
     try{
-      await axiosInstance.put(`/dashboard/posts/${slug}`, payload);
-      router.push('/dashboard/posts');
+      await axiosInstance.put(`/posts/${slug}`, payload);
+      router.push({name:'Post'});
     }catch(e){
       if(e instanceof AxiosError && e.response?.status === 422) {
           node?.setErrors(e.response.data.errors);
@@ -67,15 +67,15 @@ export const PostStore = defineStore("post", () => {
     if (!confirmed) return; // ✅ Stop if user cancels
     isLoading.value =true;
     try{
-      await axiosInstance.delete(`/dashboard/posts/${slug}`);
+      await axiosInstance.delete(`/posts/${slug}`);
       await getPosts(page)
     // 👇 Check if the current page is now empty
       if (posts?.value?.data?.length === 0 && page > 1) {
         // Go back one page
         await getPosts(page - 1);
-        router.push(`/dashboard/posts?page=${page - 1}`);
+        router.push(`/admin/post?page=${page - 1}`);
       } else {
-        router.push(`/dashboard/posts?page=${page}`);
+        router.push(`/admin/post?page=${page}`);
       }
     }catch(e){
       console.log(e)
@@ -97,14 +97,8 @@ export const PostStore = defineStore("post", () => {
     post,
     getPosts,
     getPost,
-    createPost,
+    addPost,
     updatePost,
     deletePost
   };
-},
-{
-  persist: {
-    storage: sessionStorage,
-    pick: ["user", "token", "isLoggedIn"],
-  },
 });

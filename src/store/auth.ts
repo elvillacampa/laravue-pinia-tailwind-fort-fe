@@ -13,7 +13,7 @@ export const AuthStore = defineStore("auth", () => {
   const error = ref<string | null>(null);
   const token = ref<string | null>(null);
   const loading = ref<boolean>(false);
-
+  const accessPermissions = ref<string[]>([]);  
 
   // 🛠 Actions
   const register = async (payload: RegisterForm, node?: FormKitNode) => {
@@ -69,9 +69,9 @@ export const AuthStore = defineStore("auth", () => {
     }
   }
 
-  const getLoggedUser = async () => {
-    if (isLoggedIn.value) return;
-
+  const getLoggedUser = async (reset:boolean = false) => {
+    if (isLoggedIn.value && !reset) return;
+    console.log("Fetching logged user...");
     try {
       const { data } = await axiosInstance.get("/user");
       user.value = data.data;
@@ -83,12 +83,18 @@ export const AuthStore = defineStore("auth", () => {
     }
   }
 
+  const getLoggedUserPermissions = async () => {
+    const { data } = await axiosInstance.get("/user/permissions");
+    accessPermissions.value = data.permissions;
+  }
+
   function resetUserState() {
     user.value = null;
     token.value = null;
     isLoggedIn.value = false;
     loading.value = false;
     error.value = null;
+    accessPermissions.value = [];
   }
 
     // 🪄 Getters as computed properties
@@ -97,6 +103,7 @@ export const AuthStore = defineStore("auth", () => {
     const getError = computed(() => error.value);
     const isLoading = computed(() => loading.value);
     const isAuthenticated = computed(() => !!token.value);
+    const menuAccess = computed(() => accessPermissions.value);
 
   // Return everything
   return {
@@ -110,11 +117,13 @@ export const AuthStore = defineStore("auth", () => {
     logout,
     getLoggedUser,
     resetUserState,
+    getLoggedUserPermissions,
     isAuthenticated,
     getUser,
     getToken,
     isLoading,
     getError,
+    menuAccess,
   };
 },
 {
