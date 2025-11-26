@@ -24,7 +24,7 @@ export const AuthStore = defineStore("auth", () => {
     })
 
     try {
-      payload.name = `${payload.firstname} ${payload.lastname}`
+      payload.name = `${payload.first_name} ${payload.last_name}`
       await axiosInstance.post('/register', payload, {
         withCredentials: true,
       })

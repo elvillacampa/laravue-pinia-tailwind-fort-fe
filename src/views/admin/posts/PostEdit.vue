@@ -21,7 +21,7 @@
   );
 </script>
 <template>
-  <section class="p-4">
+  <section class="py-2">
     <div v-if="postData && !loading" class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
       <FormKit 
         type="form" 

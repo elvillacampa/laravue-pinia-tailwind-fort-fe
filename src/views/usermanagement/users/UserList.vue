@@ -30,11 +30,11 @@
 
 </script>
 <template>
-    <div class="flex p-3 justify-end">
-        <RouterLink class="cursor-pointer inline-flex items-center px-3 py-1.5 text-sm font-medium text-slate-200 bg-slate-700 hover:bg-slate-600 rounded-lg" :to="{name: 'PostAdd'}">Add</RouterLink>
+    <div class="flex py-2 justify-end">
+        <RouterLink class="cursor-pointer inline-flex items-center px-3 py-1.5 text-sm font-medium text-slate-200 bg-slate-700 hover:bg-slate-600 rounded-lg" :to="{name: 'UserAdd'}">Add</RouterLink>
     </div>
     <section class="">
-        <template v-if="loading">
+        <template v-if="loading" class="">
             <LoadingTable :columns="9"/>
         </template>
         <template v-else>
@@ -96,7 +96,7 @@
                                     {{ user.deleted_at || 'N/A' }}
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    {{ user.id }}
+                                    {{ user.slug }}
                                 </td>
 
 

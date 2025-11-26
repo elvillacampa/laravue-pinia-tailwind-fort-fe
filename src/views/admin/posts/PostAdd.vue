@@ -3,8 +3,8 @@
   const { addPost } = PostStore();
 </script>
 <template>
-  <div class="p-4">
-
+  <section class="py-2">
+    <div class="w-full p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <FormKit 
         type="form" 
         submit-label="Add" 
@@ -39,4 +39,5 @@
         />
       </FormKit>
   </div>
+  </section>
 </template>

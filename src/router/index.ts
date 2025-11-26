@@ -18,6 +18,7 @@ import PostIndex from '@/views/admin/posts/PostIndex.vue'
 import UserManagementIndex from '@/views/usermanagement/UserManagementIndex.vue'
 import UserIndex from '@/views/usermanagement/users/UserIndex.vue'
 import UserList from '@/views/usermanagement/users/UserList.vue'
+import UserAdd from '@/views/usermanagement/users/UserAdd.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -79,7 +80,7 @@ const router = createRouter({
                     name: 'PostEdit',
                     path: '/admin/post/edit/:slug',
                     component: PostEdit,
-                    meta:{ requiresAuth: true, breadcrumb: 'Edit' , permissions: ['update post']},
+                    meta:{ requiresAuth: true, breadcrumb: 'Edit' , permissions: ['edit post']},
                     props: true
                   },
                 ]
@@ -101,9 +102,15 @@ const router = createRouter({
                   children:[
                     {
                       name: 'User',
-                      path: '/admin/users/list',
+                      path: 'list',
                       component: UserList,
                       meta:{ requiresAuth: true , breadcrumb: 'List', permissions: ['access user']},
+                    },
+                    {
+                      name: 'UserAdd',
+                      path: 'add',
+                      component: UserAdd,
+                      meta:{ requiresAuth: true, breadcrumb: 'Add', permissions: ['add user']}
                     },
                   ]
               },

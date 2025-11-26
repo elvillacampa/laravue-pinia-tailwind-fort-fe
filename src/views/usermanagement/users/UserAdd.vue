@@ -3,8 +3,8 @@
     const { register } = AuthStore(); 
 </script>
 <template>
-  <div class="min-h-screen mx-2 flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 items-center justify-center bg-slate-100 dark:bg-slate-900">
-    <div class="w-full max-w-150 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+  <div class="py-2 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900">
+    <div class="w-full p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <FormKit 
         type="form" 
         submit-label="Register" 
@@ -12,29 +12,19 @@
         class="w-full"
         :submit-attrs="{ inputClass: 'cursor-pointer' }"
       >
-        <div class="flex flex-col items-center space-y-3 mb-2">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            class="h-13 drop-shadow-md"
-            alt="FlowBite Logo"
-          />
-        </div>
-        <h1 class="text-center text-3xl text-slate-200">Register</h1>
-        <p class="text-sm text-white text-center mb-3">
-            Join us today! Please enter your details.   
-        </p>
-        
-        <FormKit
-        name="email"
-        type="email"
-        label="Email Address"
-        placeholder="Enter your email"
-        validation="required|email"
-        outer-class="custom-wrapper" class=""
-        />
+        <h1 class="text-center p-2 text-3xl text-slate-200">Add User</h1>      
         <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
             <FormKit
-            name="first_name"
+            name="firstname"
+            type="text"
+            label="Salutation"
+            placeholder="Enter Salutation"
+            help="Enter your preferred salutation."
+            validation="required"
+            outer-class="custom-wrapper w-full md:w-1/5"
+            />
+            <FormKit
+            name="firstname"
             type="text"
             label="First Name"
             placeholder="Enter your First Name"
@@ -43,15 +33,31 @@
             outer-class="custom-wrapper w-full md:w-1/2"
             />
             <FormKit
-            name="last_name"
+            name="lastname"
             type="text"
             label="Last Name"
             placeholder="Enter your Last Name"
             validation="required"
-            outer-class="custom-wrapper w-full md:w-1/2"
+            outer-class="custom-wrapper w-full  md:w-1/2"
+            />
+            <FormKit
+            name="lastname"
+            type="text"
+            label="Last Name"
+            placeholder="Enter your Last Name"
+            validation="required"
+            outer-class="custom-wrapper w-full  md:w-1/2"
             />
         </div>
         <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
+            <FormKit
+            name="email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter your email"
+            validation="required|email"
+            outer-class="custom-wrapper md:w-1/3" class=""
+            />
             <FormKit
             name="password"
             type="password"
@@ -61,7 +67,7 @@
             :validation-messages="{
             matches: 'Please include at least one symbol',
             }"
-            outer-class="custom-wrapper w-full md:w-1/2"
+            outer-class="custom-wrapper md:w-1/3"
             />
 
             <FormKit
@@ -70,15 +76,10 @@
             label="Password Confirmation"
             placeholder="Enter your password again."
             validation="required|confirm:password"
-            outer-class="custom-wrapper w-full md:w-1/2"
+            outer-class="custom-wrapper md:w-1/3"
             />
         </div>
         </FormKit>
-      <p class="text-white text-right"> Already have an account? 
-        <RouterLink :to="{ name: 'Login'}" class="text-sky-400 hover:underline">
-          Login!
-        </RouterLink>
-      </p>
     </div>
   </div>
 </template>
