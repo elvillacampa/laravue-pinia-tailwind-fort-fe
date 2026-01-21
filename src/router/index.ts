@@ -44,59 +44,94 @@ const router = createRouter({
           meta:{ requiresAuth: true, breadcrumb: 'Dashboard', permissions: []}
         },
         {
-          path: '/admin',
-          name: 'Admin',
-          redirect: '/admin/post',
-          component: AdminIndex,
-          meta:{ requiresAuth:  true },
+          name: 'PostIndex',
+          path: '/post',
+          redirect:'/post/list',
+          component: PostIndex,
+          meta:{ requiresAuth: true , breadcrumb: 'Posts',},
           children:[
-              {
-                name: 'PostIndex',
-                path: '/admin/post',
-                redirect:'/admin/post/list',
-                component: PostIndex,
-                meta:{ requiresAuth: true , breadcrumb: 'Posts',},
-                children:[
-                  {
-                    name: 'Post',
-                    path: '/admin/post/list',
-                    component: PostList,
-                    meta:{ requiresAuth: true , breadcrumb: 'List', permissions: ['access post']},
-                  },
-                  {
-                    name: 'PostAdd',
-                    path: '/admin/post/add',
-                    component: PostAdd,
-                    meta:{ requiresAuth: true, breadcrumb: 'Add', permissions: ['add post']}
-                  },
-                  {
-                    name: 'PostView',
-                    path: '/admin/post/view/:slug',
-                    component: PostView,
-                    meta:{ requiresAuth: true , breadcrumb: 'View', permissions: ['view post']},
-                    props: true
-                  },
-                  {
-                    name: 'PostEdit',
-                    path: '/admin/post/edit/:slug',
-                    component: PostEdit,
-                    meta:{ requiresAuth: true, breadcrumb: 'Edit' , permissions: ['edit post']},
-                    props: true
-                  },
-                ]
-              },
+            {
+              name: 'Post',
+              path: '/post/list',
+              component: PostList,
+              meta:{ requiresAuth: true , breadcrumb: 'List', permissions: ['access post']},
+            },
+            {
+              name: 'PostAdd',
+              path: '/post/add',
+              component: PostAdd,
+              meta:{ requiresAuth: true, breadcrumb: 'Add', permissions: ['add post']}
+            },
+            {
+              name: 'PostView',
+              path: '/post/view/:slug',
+              component: PostView,
+              meta:{ requiresAuth: true , breadcrumb: 'View', permissions: ['view post']},
+              props: true
+            },
+            {
+              name: 'PostEdit',
+              path: '/post/edit/:slug',
+              component: PostEdit,
+              meta:{ requiresAuth: true, breadcrumb: 'Edit' , permissions: ['edit post']},
+              props: true
+            },
           ]
         },
+        // {
+        //   path: '/admin',
+        //   name: 'Admin',
+        //   redirect: '/admin/post',
+        //   component: AdminIndex,
+        //   meta:{ requiresAuth:  true },
+        //   children:[
+        //       {
+        //         name: 'PostIndex',
+        //         path: '/admin/post',
+        //         redirect:'/admin/post/list',
+        //         component: PostIndex,
+        //         meta:{ requiresAuth: true , breadcrumb: 'Posts',},
+        //         children:[
+        //           {
+        //             name: 'Post',
+        //             path: '/admin/post/list',
+        //             component: PostList,
+        //             meta:{ requiresAuth: true , breadcrumb: 'List', permissions: ['access post']},
+        //           },
+        //           {
+        //             name: 'PostAdd',
+        //             path: '/admin/post/add',
+        //             component: PostAdd,
+        //             meta:{ requiresAuth: true, breadcrumb: 'Add', permissions: ['add post']}
+        //           },
+        //           {
+        //             name: 'PostView',
+        //             path: '/admin/post/view/:slug',
+        //             component: PostView,
+        //             meta:{ requiresAuth: true , breadcrumb: 'View', permissions: ['view post']},
+        //             props: true
+        //           },
+        //           {
+        //             name: 'PostEdit',
+        //             path: '/admin/post/edit/:slug',
+        //             component: PostEdit,
+        //             meta:{ requiresAuth: true, breadcrumb: 'Edit' , permissions: ['edit post']},
+        //             props: true
+        //           },
+        //         ]
+        //       },
+        //   ]
+        // },
         {
           path: '/user-management',
           name: 'User Management',
-          redirect: '/user-management/users',
+          redirect: '/user-management/user',
           component: UserManagementIndex,
           meta:{ requiresAuth: true, breadcrumb: 'User Management' },
           children:[
               {
                 name: 'UserIndex',
-                path: 'users',
+                path: 'user',
                 component: UserIndex,
                 meta:{ requiresAuth: true, breadcrumb: 'Users', permissions: ['access user'] },
                   children:[
@@ -116,13 +151,13 @@ const router = createRouter({
               },
               {
                 name: 'Role', 
-                path: 'roles',
+                path: 'role',
                 component: HomeView,
                 meta:{ requiresAuth: true, breadcrumb: 'Roles', permissions: ['access role'] }
               },
               {
                 name: 'Permission',
-                path: 'permissions',
+                path: 'permission',
                 component: HomeView,
                 meta:{ requiresAuth: true, breadcrumb: 'Permissions', permissions: ['access permission'] }
               },

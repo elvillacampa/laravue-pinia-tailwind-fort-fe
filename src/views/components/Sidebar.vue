@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
-import  { adminMenuConfig } from "@/types/adminMenuConfig";
+import  { MenuConfig } from "@/types/MenuConfig";
 import { onBeforeMount,ref } from "vue";
 import {useRoute} from "vue-router";
 
@@ -9,7 +9,7 @@ const route = useRoute()
 const store = AuthStore()
 const { menuAccess } = storeToRefs(store)
 const { getLoggedUserPermissions, getLoggedUser } = store
-const menus = ref<typeof adminMenuConfig>([])
+const menus = ref<typeof MenuConfig>([])
 
 const isActiveRoute = (pageName: string) => {
   return route.name === pageName
@@ -35,7 +35,7 @@ onBeforeMount(async () => {
    // Fetch user and permissions
    await getLoggedUserPermissions();
    const access = new Set(menuAccess.value || []);
-   menus.value = adminMenuConfig
+   menus.value = MenuConfig
       .map(menu => {
          const m = { ...menu };
          if (m.pages?.length) {

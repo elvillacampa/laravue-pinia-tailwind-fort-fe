@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, watch } from 'vue';
+    import { watch } from 'vue';
     import { useRouter } from 'vue-router';
     import { PostStore } from '@/store/post';
     import { storeToRefs } from 'pinia'
@@ -21,6 +21,7 @@
             <h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ postData.title }}</h1>
             <p class="text-gray-700 dark:text-gray-300 mb-4">{{ postData.content }}</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">Created at: {{ postData.created_at  }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Author: {{ postData.author?.name || '?'  }}</p>
             <p class="text-sm text-gray-500 dark:text-gray-400">Published: {{ postData.is_published ? 'Yes' : 'No' }}</p>
         </div>
         <div v-else class="text-center text-white">

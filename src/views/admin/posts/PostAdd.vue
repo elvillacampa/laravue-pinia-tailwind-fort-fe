@@ -37,7 +37,17 @@
           outer-class="custom-wrapper"
           help="The actual post."
         />
+      <FormKit
+        name="is_published"
+        type="checkbox"
+        label="Publish Post"
+        validation=""
+        outer-class="custom-wrapper"
+        help="Check this box to publish the post immediately."
+      />
       </FormKit>
+
+
   </div>
   </section>
 </template>

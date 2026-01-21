@@ -75,6 +75,7 @@ export const AuthStore = defineStore("auth", () => {
     try {
       const { data } = await axiosInstance.get("/user");
       user.value = data.data;
+      console.log("Logged user data:", user.value);
       isLoggedIn.value = true;
     } catch (e) {
       if (e instanceof AxiosError && e.response?.status === 401) {

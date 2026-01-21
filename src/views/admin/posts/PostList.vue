@@ -45,7 +45,7 @@
                                 #
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                ID
+                                Slug
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Title
@@ -54,10 +54,10 @@
                                 Published
                             </th>
                             <th scope="col" class="px-6 py-3  text-center">
-                                Created
+                                Author
                             </th>
                             <th scope="col" class="px-6 py-3  text-center">
-                                Slug
+                                Created
                             </th>
                             <th scope="col" class="px-6 py-3  text-center">
                                 Action
@@ -71,7 +71,7 @@
                                     {{ index + 1 }}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ post.id }}
+                                    {{ post.slug }}
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ post.title }}
@@ -81,12 +81,11 @@
                                     <span v-else class="text-red-500">No</span>
                                 </td>
                                 <td class="px-6 py-4 text-center">
+                                    {{ post.author?.name || '?' }}
+                                </td>
+                                <td class="px-6 py-4 text-center">
                                     {{ post.created_at }}
                                 </td>
-                                <td class="px-6 py-4  text-center">
-                                    {{ post.slug }}
-                                </td>
-
                                 <td class="px-6 py-4 ">
                                     <div class="flex space-x-4 justify-center">
                                         <RouterLink :to="{ name: 'PostView', params: { slug: post.slug } }">

@@ -18,7 +18,7 @@ export const PostStore = defineStore("post", () => {
     posts.value = null
     isLoading.value = true;
     try{
-      const { data } = await axiosInstance.get(`/posts?page=${page}`);
+      const { data } = await axiosInstance.get(`/post?page=${page}`);
       posts.value = data;
     }catch(e){
       console.log(e)
@@ -31,7 +31,7 @@ export const PostStore = defineStore("post", () => {
     post.value = null
     isLoading.value = true;
     try{
-      const { data } = await axiosInstance.get(`/posts/${slug}`);
+      const { data } = await axiosInstance.get(`/post/${slug}`);
       post.value = data.data;
     }catch(e){
       console.log(e)
@@ -42,23 +42,37 @@ export const PostStore = defineStore("post", () => {
 
   const addPost = async(payload: postForm,  node?: FormKitNode) => {
     try{
-      await axiosInstance.post('/posts', payload);
+      await axiosInstance.post('/post', payload);
       router.push({name:'Post'});
     }catch(e){
       if(e instanceof AxiosError && e.response?.status === 422) {
           node?.setErrors(e.response.data.errors);
+          console.log(e.response.data);
+      }
+      // Authorization error (403)
+      if(e instanceof AxiosError && e.response?.status === 403) {
+        node?.setErrors([
+          e.response.data.message || "You are not authorized to perform this action."
+        ]);
       }  
+
     }
   }
 
   const updatePost = async(slug: string, payload: postForm,  node?: FormKitNode) => {
     try{
-      await axiosInstance.put(`/posts/${slug}`, payload);
+      await axiosInstance.put(`/post/${slug}`, payload);
       router.push({name:'Post'});
     }catch(e){
       if(e instanceof AxiosError && e.response?.status === 422) {
           node?.setErrors(e.response.data.errors);
       }  
+      // Authorization error (403)
+      if(e instanceof AxiosError && e.response?.status === 403) {
+        node?.setErrors([
+          e.response.data.message || "You are not authorized to perform this action."
+        ]);
+      } 
     } 
   }
 
@@ -67,15 +81,15 @@ export const PostStore = defineStore("post", () => {
     if (!confirmed) return; // ✅ Stop if user cancels
     isLoading.value =true;
     try{
-      await axiosInstance.delete(`/posts/${slug}`);
+      await axiosInstance.delete(`/post/${slug}`);
       await getPosts(page)
     // 👇 Check if the current page is now empty
       if (posts?.value?.data?.length === 0 && page > 1) {
         // Go back one page
         await getPosts(page - 1);
-        router.push(`/admin/post?page=${page - 1}`);
+        router.push(`/post?page=${page - 1}`);
       } else {
-        router.push(`/admin/post?page=${page}`);
+        router.push(`/post?page=${page}`);
       }
     }catch(e){
       console.log(e)

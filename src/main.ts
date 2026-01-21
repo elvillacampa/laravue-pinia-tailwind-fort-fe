@@ -8,7 +8,7 @@ import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import InlineSvg from 'vue-inline-svg'
-
+document.title = import.meta.env.VITE_APP_NAME || 'Web App'
 
 const pinia = createPinia()
 const app = createApp(App)

@@ -57,6 +57,16 @@
           outer-class="custom-wrapper"
           help="The actual post."
         />
+
+        <FormKit
+          name="is_published"
+          type="checkbox"
+          :value="postData?.is_published"
+          label="Publish Post"
+          class="mb-5"
+          outer-class="custom-wrapper"
+          help="Check this box to publish the post immediately."
+        />
       </FormKit>
     </div>
     <div v-else class="text-center p-4 text-white">

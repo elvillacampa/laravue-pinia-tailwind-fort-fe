@@ -75,8 +75,8 @@ function initDropdown() {
 <template>
   <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center justify-start rtl:justify-end ">
+      <div class="flex items-center  justify-between">
+        <div class="flex items-center justify-start rtl:justify-end">
           <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
               <span class="sr-only">Open sidebar</span>
               <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -87,10 +87,12 @@ function initDropdown() {
             :to="{ name: 'Home' }"
             class="flex ms-2 md:me-24"
           >
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="Sidequest Logo" />
+            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Sidequest</span>
           </RouterLink>
-          <Breadcrumbs v-if="route.name !== 'Home'" class="ms-4 hidden md:block"/>
+        </div>
+        <div class="flex items-center flex-1 w-full md:w-auto">
+          <Breadcrumbs v-if="route.name !== 'Home'" class=" hidden md:block"/>
         </div>
         <div class="flex items-center">
             <div class="flex items-center ms-3">

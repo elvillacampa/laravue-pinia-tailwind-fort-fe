@@ -1,4 +1,4 @@
-const adminMenuConfig = [
+const MenuConfig = [
     {
         heading: "",
         svgIcon:"",
@@ -9,24 +9,18 @@ const adminMenuConfig = [
                 svgIcon: 'svgicons/custom/dashboard.svg',
                 permission: '',
             },
-        ]
-    },
-    {
-        heading: "Administrator",
-        svgIcon: 'svgicons/custom/administrator.svg',
-        pages: [
             {
                 name: 'Inbox',
-                route: '/admin/inbox',
+                route: '/inbox',
                 svgIcon: 'svgicons/custom/dashboard.svg',
                 permission: 'access inbox',
             },
             {
                 name: 'Post',
-                route: '/admin/posts',
+                route: '/post',
                 svgIcon: 'svgicons/custom/post.svg',
                 permission: 'access post',
-            }
+            },
         ]
     },
     {
@@ -60,4 +54,4 @@ const adminMenuConfig = [
         ]
     }
 ]
-export { adminMenuConfig };
+export { MenuConfig };

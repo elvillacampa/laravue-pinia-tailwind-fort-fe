@@ -4,9 +4,12 @@ export interface LoginForm {
 }
 
 export interface RegisterForm {
+    salutation: string;
     name: string;
     first_name: string;
+    middle_name: string;
     last_name: string;
+    email_verify: string;
     email: string;
     password: string;
     password_confirmation: string;
@@ -32,14 +35,17 @@ export type Post {
     title?: string;
     content?: string;
     created_at?: string;
-    is_published?: boolean;
+    is_published?: boolean | true;
     slug?: string;
     loading?: boolean;
+    author?: User;
 }
 
 export type postForm = {
     title: string;
     slug: string;
+    content: string;
+    is_published: boolean;
 }
 
 export interface LaravelResponseCollection<T>{
